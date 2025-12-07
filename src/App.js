@@ -6,30 +6,35 @@ export default function App() {
   const [error, setError] = useState("");
 
   const handleSearch = async () => {
-    if (!city.trim()) {
-      setError("Please enter a city name");
-      return;
+  if (!city.trim()) {
+    setError("Please enter a city name");
+    return;
+  }
+
+  setError("");
+  setData(null);
+
+  try {
+    // Step 1: Wake up Render server
+    await fetch("https://weather-app-38bh.onrender.com/healthz");
+
+    // Step 2: Fetch weather data
+    const response = await fetch(
+      `https://weather-app-38bh.onrender.com/weather?city=${encodeURIComponent(city)}`
+    );
+
+    if (!response.ok) {
+      throw new Error("City not found or server error.");
     }
 
-    setError("");
-    setData(null);
+    const result = await response.json();
+    setData(result);
 
-    try {
-      const response = await fetch(
-  https://weather-app-38bh.onrender.com/weather?city=${ encodeURIComponent(city) }
+  } catch (err) {
+    setError(err.message);
+  }
+};
 
-);
-
-      if (!response.ok) {
-        throw new Error("City not found or server error.");
-      }
-
-      const result = await response.json();
-      setData(result);
-    } catch (err) {
-      setError(err.message);
-    }
-  };
 
   return (
     <div style={{ padding: "20px" }}>
