@@ -16,7 +16,8 @@ export default function App() {
 
     try {
       const response = await fetch(
-  `https://weather-app-38bh.onrender.com/weather?city=${encodeURIComponent(city)}`
+  https://weather-app-38bh.onrender.com/weather?city=${ encodeURIComponent(city) }
+
 );
 
       if (!response.ok) {
