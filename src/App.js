@@ -41,7 +41,9 @@ export default function App() {
         onChange={(e) => setCity(e.target.value)}
       />
 
-      <button onClick={handleSearch}>Get Weather</button>
+     <button onClick={handleSearch} style={{ marginLeft: "10px" }}>
+  Get Weather
+</button>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
