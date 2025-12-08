@@ -14,25 +14,26 @@ export default function App() {
   setError("");
   setData(null);
 
-  try {
-    // Step 1: Wake up Render server
-    await fetch("https://weather-app-38bh.onrender.com/healthz");
+try {
+  // Wake backend
+  await fetch("https://weather-app-38bh.onrender.com/healthz");
 
-    // Step 2: Fetch weather data
-    const response = await fetch(
-      `https://weather-app-38bh.onrender.com/weather?city=${encodeURIComponent(city)}`
-    );
+  // Fetch weather
+  const response = await fetch(
+    `https://weather-app-38bh.onrender.com/weather?city=${encodeURIComponent(city)}`
+  );
 
-    if (!response.ok) {
-      throw new Error("City not found or server error.");
-    }
-
-    const result = await response.json();
-    setData(result);
-
-  } catch (err) {
-    setError(err.message);
+  if (!response.ok) {
+    throw new Error("City not found or server error.");
   }
+
+  const result = await response.json();
+  setData(result);
+
+} catch (err) {
+  setError(err.message);
+}
+
 };
 
 
