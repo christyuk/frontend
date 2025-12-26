@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import API from "../api";
 
 function Login() {
@@ -15,6 +15,7 @@ function Login() {
 
       localStorage.setItem("token", res.data.token);
       alert("Login successful ✅");
+      setError("");
     } catch (err) {
       setError("Login failed");
     }
