@@ -1,12 +1,7 @@
 import axios from "axios";
 
-const API = axios.create({
-  baseURL: process.env.REACT_APP_API_URL
+const api = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
 });
 
-export const loginUser = (username, password) => {
-  return API.post("/api/auth/login", {
-    username,
-    password
-  });
-};
+export default api;

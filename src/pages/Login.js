@@ -1,20 +1,24 @@
 import { useState } from "react";
-import { loginUser } from "../api";
+import api from "../api";
 
-function Login({ onLogin }) {
+function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleLogin = async () => {
     setError("");
+    setSuccess("");
 
     try {
-      const res = await loginUser(username, password);
+      const res = await api.post("/api/auth/login", {
+        username,
+        password,
+      });
 
-      if (res.data.success) {
-        onLogin(res.data.user);
-      }
+      setSuccess(res.data.message);
+      console.log("TOKEN:", res.data.token);
     } catch (err) {
       setError("Login failed");
     }
@@ -42,6 +46,7 @@ function Login({ onLogin }) {
       <button onClick={handleLogin}>Login</button>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
+      {success && <p style={{ color: "green" }}>{success}</p>}
     </div>
   );
 }
