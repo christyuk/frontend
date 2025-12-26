@@ -18,7 +18,6 @@ function Login() {
       });
 
       setSuccess(res.data.message);
-      console.log("TOKEN:", res.data.token);
     } catch (err) {
       setError("Login failed");
     }
